@@ -1,0 +1,4 @@
+layer size:
+3  12  10  
+memory layer:
+2
