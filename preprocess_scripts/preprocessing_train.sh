@@ -1,0 +1,53 @@
+#!/bin/bash -e
+cat ../../Holmes_Training_Data/*.TXT | sed "s///g" \
+| tr '[:upper:]' '[:lower:]' \
+| sed "/.txt/d" \
+| sed "/\*/d" \
+| sed "/^$/d" \
+| sed "/\@.*.com/d" \
+| sed "/login:/d" \
+| sed "/password:/d" \
+| sed "/ftp/d" \
+| sed "/---/d" \
+| tr '\n' ' ' \
+| sed "s/#/ /g" \
+| sed "s/:/ /g" \
+| sed "s/\*//g" \
+| sed "s/\[*\]//g" \
+| sed "s/\[//g" \
+| sed "s/(.*)//g" \
+| sed "s/<.*>//g" \
+| sed "s/\.+/\./g" \
+| sed "s/\"//g" \
+| sed "s/-//g" \
+| sed "s/_//g" \
+| sed "s/mr./mr/g" \
+| sed "s/mrs./mrs/g" \
+| sed "s/i'm/i am/g" \
+| sed "s/he's/he is/g" \
+| sed "s/she's/she is/g" \
+| sed "s/they're/they are/g" \
+| sed "s/'d/ would/g" \
+| sed "s/'ve/ have/g" \
+| sed "s/don't/do not/g" \
+| sed "s/'ll/ will/g" \
+| sed "s/'re/ are/g" \
+| sed "s/'in/ing/g" \
+| sed "s/didn't/did not/g" \
+| sed "s/ o / on /g" \
+| sed "s/'/ /g" \
+| sed "s/\./ \n/g" \
+| sed "s/;/ \n/g" \
+| sed "s/\?/ \n/g" \
+| sed "s/!/ \n/g" \
+| sed "s/[:blank:]+/ /g" \
+| sed "s/^[:blank:]+//g" \
+| sed "s/^but(,)*//g" \
+| sed "s/^and(,)*//g" \
+| sed "s/^so(,)*//g" \
+| sed "s/^then(,)*//g" \
+| sed "/^said/d" \
+| sed "s/[^[:print:]]//g" \
+| sed "s/,/ /g" \
+| sed "s/^/<s> /" \
+| sed "s/$/ <\/s>/"   > ../preprocessed_files/TRAIN.TXT
