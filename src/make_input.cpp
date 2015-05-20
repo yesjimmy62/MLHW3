@@ -21,10 +21,10 @@ using std::find;
 
 typedef map<string, float*> feature_map;
 
-const char train_txt[] = "../preprocessed_files/TRAIN.TXT";
-const char train_vec[] = "../word_vectors_files/TRAIN_VEC.TXT";
-const char test_vec[] = "../word_vectors_files/TEST_VEC.TXT";
-const char test_with_brac[] = "../preprocessed_files/TESTING_WITH_BRACKETS.TXT";
+const char train_txt[] = "preprocess/preprocessed_files/RAW_TRAIN_INPUT.TXT";
+const char test_with_brac[] = "preprocess/preprocessed_files/RAW_TEST_WITH_BRACKETS.TXT";
+const char train_vec[] = "preprocess/word_vectors_files/TRAIN_VEC.TXT";
+const char test_vec[] = "preprocess/word_vectors_files/TEST_VEC.TXT";
 
 //int get_test_map(feature_map*);
 int get_test_num();
@@ -41,6 +41,7 @@ int main(){
     get_test_array(ptr);
     
     int l1 = get_train_map(train_map, ptr, num_of_words); // l1 = length 1, length of word vector
+    cout<<"simple_guess\n";
     simple_guess(train_map, l1);
     make_input_txt(train_map, l1);
     /*feature_map::iterator it;
@@ -90,6 +91,7 @@ int get_test_num(){
     strcpy(line, string_line.c_str()); // from string to char array
     token = strtok(line, delim);  // first part
     word_num = atoi(token); // get number of testing words
+    test.close();
     return word_num;
 }
 
@@ -109,6 +111,7 @@ void get_test_array(string* a_ptr){
         a_ptr[c] = word;
         c++;
     }
+    test.close();
 }
 /*
 int get_test_map(feature_map* test_map){
@@ -189,6 +192,8 @@ int get_train_map(feature_map* train_map, string* vec, int len){
             }
         }
     }
+    cout<<"train.close\n";
+    train.close();
     return feature_length;
 }
 
@@ -280,6 +285,7 @@ void simple_guess(feature_map* train_map, int word_vec_size){ // simply use word
         }
     }
     guess_csv.close();
+    test_b.close();
 }
 
 void make_input_txt(feature_map* train_map, int length){
@@ -292,7 +298,7 @@ void make_input_txt(feature_map* train_map, int length){
     vector<float*> fptr_vec;
     int number_of_lines = get_num_of_lines(train_txt);
     ifstream train("TRAIN.TXT");
-    ofstream input_txt("../input_files/input.txt");
+    ofstream input_txt("input_files/input.txt");
     input_txt<<"number of data:"<<endl<<number_of_lines<<endl<<"-----"<<endl;
     while(getline(train,string_line)){
         strcpy(line, string_line.c_str()); // from string to char array
@@ -323,6 +329,8 @@ void make_input_txt(feature_map* train_map, int length){
         words_in_sentences = 0;
         fptr_vec.clear();
     }
+    train.close();
+    input_txt.close();
 }
 int get_num_of_lines(const char* file){
     ifstream in(file);
@@ -331,5 +339,6 @@ int get_num_of_lines(const char* file){
     while(getline(in, str)){
         n++;
     }
+    in.close();
     return n;
 }
