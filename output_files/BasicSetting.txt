@@ -1,8 +1,0 @@
-number of layers:
-3
-layer size:
-3  12  10  
-number of memory:
-1
-memory layer:
-2
