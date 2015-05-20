@@ -1,6 +1,6 @@
 #include "General.h"
 
-MatrixXd* Load_Data(const char* filename, MatrixXd *data)
+MatrixXd* Load_Data(const char* filename, MatrixXd *data, int *ptr_num_data)
 {
     ifstream fin(filename);
     FILE *File;
@@ -12,12 +12,13 @@ MatrixXd* Load_Data(const char* filename, MatrixXd *data)
     fgets(str, max_n, File);  getline(fin, s);
     fgets(str, max_n, File);  getline(fin, s);
 
-    cout<<"str:"<<str<<endl;
+    //cout<<"str:"<<str<<endl;
 
-    int num_data;
-    sscanf(str, "%d", &num_data);
+    sscanf(str, "%d", ptr_num_data);
+    (*ptr_num_data) = min (*ptr_num_data, MAX_NUM_DATA);
 
-    cout<<"num_data:"<<num_data<<endl;
+    int num_data = *ptr_num_data;
+    //cout<<"num_data:"<<num_data<<endl;
     
     data = new MatrixXd [num_data];
 
@@ -26,6 +27,7 @@ MatrixXd* Load_Data(const char* filename, MatrixXd *data)
 
     for (int i=0; i<num_data; i++)
     {
+        cout<<"Load Data: "<<i<<" / "<<num_data<<endl;
         fgets(str, max_n, File); getline(fin, s);
         fgets(str, max_n, File); getline(fin, s);
         fgets(str, max_n, File); getline(fin, s);
@@ -47,9 +49,9 @@ MatrixXd* Load_Data(const char* filename, MatrixXd *data)
         }
         getline(fin, s);
 
-        cout<<endl<<"data->rows():"<<data[i].rows()<<endl;
+        //cout<<endl<<"data->rows():"<<data[i].rows()<<endl;
 
-        cout<<"data="<<endl<<data[i]<<endl;
+        //cout<<"data="<<endl<<data[i]<<endl;
     }
 
     fclose(File);

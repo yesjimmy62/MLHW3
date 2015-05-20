@@ -125,8 +125,10 @@ int main()
 
 
     MatrixXd *data=NULL;
-    data = Load_Data("input_files/input.txt", data);
-    int num_data = 10; //todo.....
+    int num_data;
+    data = Load_Data("input_files/input.txt", data, &num_data);
+
+
     RNNobject.Predicting(num_data, data);
 
 }

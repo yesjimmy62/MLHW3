@@ -3,7 +3,9 @@
 
 
 
-MatrixXd* Load_Data(const char* filename, MatrixXd *data);
+MatrixXd* Load_Data(const char* filename, MatrixXd *data, int* );
+
+MatrixXd* HW3_MakingAnswers(MatrixXd*, MatrixXd*, int);
 
 /*
 MatrixXd* Load_Parameters

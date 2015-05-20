@@ -5,9 +5,9 @@ EXECUTABLE_TRAIN:=RNN_TRAIN
 EXECUTABLE_PREDICT:=RNN_PREDICT
 OBJ_PATH=Object
 
-CC_FILE:= Main_RNN.cpp Main_Predict.cpp Load_Data.cpp
+CC_FILE:= Main_RNN.cpp Main_Predict.cpp Load_Data.cpp HW3_MakingAnswers.cpp
 
-TRAIN_OBJ := Main_RNN.o Load_Data.o
+TRAIN_OBJ := Main_RNN.o Load_Data.o HW3_MakingAnswers.o
 PREDICT_OBJ := Main_Predict.o Load_Data.o
 vpath %.cpp src
 

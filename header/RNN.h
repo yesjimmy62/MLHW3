@@ -217,7 +217,7 @@ class RNN
         } 
 
 
-        void Training(int num_data, MatrixXd *data, MatrixXd *real_answer, int num_epoch)
+        void Training(int num_data, MatrixXd *data, MatrixXd *real_answer, int num_epoch, double learning_rate)
         {
 
             int num_member;
@@ -237,7 +237,13 @@ class RNN
 
                 for (int i=0; i<num_data; i++)
                 {
-                    num_member = data[i].rows();
+                    //There may be some difference between data[i].rows() and real_answer[i].rows()
+                    //For example, we may produce real_answer by getting next row of data
+                    //Then, real_answer[i].rows() = data[i].rows() - 1
+
+                    //num_member = data[i].rows();
+                    num_member = real_answer[i].rows();
+                    
                     if (num_member > size_output)
                     {
                         delete []output;
@@ -266,14 +272,17 @@ class RNN
                     }
  
                     // <^> gradient descent
-                    GradientDescent(0.5);
+                    GradientDescent(learning_rate);
  
  
                 } //for (int i=0; i<num_data; i++)
+                
+                if (epoch % NUM_DATA_DUMP == 0)
+                    Output_Parameters(epoch);
             } //for (int epoch=0; epoch<num_epoch; epoch++)
 
 
-            Output_Parameters();
+            Output_Parameters(-1);
         } //void Training(...)
 
 
@@ -347,9 +356,11 @@ class RNN
 
 
 
-        void Output_Parameters()
+        void Output_Parameters(int epoch)
         {
-            char dir_path[40] ="output_files/"; 
+            char dir_path[40] ="output_files/";
+            char str_epoch[15];
+            sprintf(str_epoch, "%d_", epoch); 
             char filename0[100], filename1[100], filename2[100];
 
             // <^> output basic setting
@@ -370,7 +381,8 @@ class RNN
 
             // <^> output normal bias and weight
             char dir_path1[100] ="output_files/";
-            strcpy(filename1, "NormalParameters.txt");
+            strcpy(filename1, str_epoch);
+            strcat(filename1, "NormalParameters.txt");
             fout.open(strcat(dir_path1, filename1));
             for (int i=0; i<num_weight; i++)
             {
@@ -383,7 +395,8 @@ class RNN
 
             // <^> output memory bias and weight
             char dir_path2[100] ="output_files/";
-            strcpy(filename2, "MemoryParameters.txt");
+            strcpy(filename2, str_epoch);
+            strcat(filename2, "MemoryParameters.txt");
             fout.open(strcat(dir_path2, filename2));
             for (int i=0; i<num_memory; i++)
             {
