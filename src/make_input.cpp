@@ -177,7 +177,7 @@ int get_train_map(feature_map* train_map, string* vec, int len){
             if(p != vec+len){ // already has OTHERS
                 for(int count = 0; count < feature_length; count++) {
                     token = strtok(NULL, delim); // extract features
-                    feature[count] = (feature[count] + atof(token)) / 2;
+                    feature[count] = 0;//(feature[count] + atof(token)) / 2;
                 }
             }
             else{
