@@ -13,7 +13,7 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | tr '\n' ' ' \
 | sed "s/#/ /g" \
 | sed "s/:/ /g" \
-| sed "s/\[/ /g" \
+| sed "s/\[.*\]/ /g" \
 | sed "s/(.*)//g" \
 | sed "s/<.*>/ /g" \
 | sed "s/\.+/\./g" \
