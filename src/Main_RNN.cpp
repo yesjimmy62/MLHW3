@@ -24,22 +24,10 @@ int main()
 
     RNNobject.Print_LayerInfo();
 
-    //fake data
-    MatrixXd *features;
-    int num_data = 2;
-    features = new MatrixXd [num_data];
-    features[0] = MatrixXd(2,3);
-    features[0]<< 0, 1, 2,
-                  3, 4, 5;
-    features[1] = MatrixXd(4,3);
-    features[1]<< 9,8,7,
-                  6,5,4,
-                  3,2,1,
-                  0,-1,-2;
-
-    MatrixXd *real_answer=NULL;
 
     MatrixXd *data=NULL;
+    MatrixXd *real_answer=NULL;
+
     data = Load_Data("input_files/input.txt", data);
     real_answer = Load_Data("input_files/output.txt", real_answer);
 
@@ -48,6 +36,10 @@ int main()
     cout<<"real_answer->rows():"<<real_answer[0].rows()<<endl;
 
     int num_epoch = 50;
+    int num_data = 10; //QQQQQQQQQQQQQQQQQQQQQ
+
+    cout<<"num_data:"<<num_data<<endl;
+    
     RNNobject.Training(num_data, data, real_answer, num_epoch);
 
     return 0;

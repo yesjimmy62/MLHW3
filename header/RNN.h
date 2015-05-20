@@ -255,15 +255,7 @@ class RNN
                     {
                         ForwardPropagation(data[i].row(j), j);
  
- 
-                        //cout<<"max index:"<<layers[num_weight]->FindMaxIndex()<<endl;
-                        //output[j] = layers[num_weight]->FindMaxIndex();
- 
                     }
-                    //cout<<"real_answer:"<<endl<<real_answer[i]<<endl;
-                    //cout<<"HERE A a:"<<endl<<layers[num_weight]->a[0]<<endl;
-                    
-                    //cout<<"HERE A:"<<endl<<(real_answer[0])<<endl;
  
                     CostFunction(num_member, &real_answer[i]);
  
@@ -285,6 +277,76 @@ class RNN
         } //void Training(...)
 
 
+        void Predicting(int num_data, MatrixXd *data)
+        {
+
+            int num_member;
+            int size_output = 10;
+            int *output;
+            output = new int [size_output];
+
+            // <^> output prediction file
+            ofstream fout("output_files/Prediction.txt");
+
+            // <^> checking parameters
+            // ... todo ...
+
+
+            for (int i=0; i<num_data; i++)
+            {
+                num_member = data[i].rows();
+                if (num_member > size_output)
+                {
+                    delete []output;
+                    output = new int [num_member+5];
+                }
+ 
+                // <^> reset the memory
+                Memory_Reset();
+ 
+                // <^> forward propagation
+                for (int j=0; j<num_member; j++)
+                {
+                    ForwardPropagation(data[i].row(j), j);
+ 
+                }
+ 
+                //CostFunction(num_member, &real_answer[i]);
+
+                Output_Predict_ToyData(&fout, num_member);
+ 
+ 
+ 
+            } //for (int i=0; i<num_data; i++)
+
+            fout.close();
+
+        } //void Predicting(...)
+
+        void Output_Predict_ToyData(ofstream *fout, int total_time)
+        {
+            int max_index;
+            int output_num = layers[last_layer]->layer_size;
+
+            *fout<<"-----"<<endl;
+            for (int t=0; t<total_time; t++)
+            {
+                max_index = layers[last_layer]->FindMaxIndex(t);
+                for (int i=0; i< output_num; i++)
+                {
+                    if (i == max_index && layers[last_layer]->a[t](max_index,0)>0.5)
+                        *fout<<"1  ";
+                    else
+                        *fout<<"0  ";
+                }
+                *fout<<endl;
+            }
+        }
+
+
+
+
+
         void Output_Parameters()
         {
             char dir_path[40] ="output_files/"; 
@@ -293,10 +355,14 @@ class RNN
             // <^> output basic setting
             strcpy(filename0, "BasicSetting.txt");
             ofstream fout(strcat(dir_path, filename0));
+            fout<<"number of layers:"<<endl;
+            fout<<num_layer<<endl;
             fout<<"layer size:"<<endl;
             for (int i=0; i<num_layer; i++)
                 fout<<layer_size[i]<<"  ";
             fout<<endl;
+            fout<<"number of memory:"<<endl;
+            fout<<num_memory<<endl;
             fout<<"memory layer:"<<endl;
             for (int i=0; i<num_memory; i++)
                 fout<<memory_layer_index[i];
@@ -309,7 +375,7 @@ class RNN
             for (int i=0; i<num_weight; i++)
             {
                 fout<<"bias:"<<endl;
-                fout<<bias[i]<<endl;
+                fout<<bias[i].transpose()<<endl;
                 fout<<"weight:"<<endl;
                 fout<<weight[i]<<endl;
             }
@@ -323,7 +389,7 @@ class RNN
             {
                 fout<<"bias:"<<endl;
                 fout<<((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_bias.transpose();
-                fout<<"weight:"<<endl;
+                fout<<endl<<"weight:"<<endl;
                 fout<<((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_weight<<endl;
             }
             fout.close();
@@ -343,6 +409,8 @@ class RNN
                 ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_bias = m_bias_load[i];
                 ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_weight = m_weight_load[i];
             }
+
+            cout<<"In Set_Parameters:"<<endl<<bias[num_weight-1]<<endl;
         }
 
 

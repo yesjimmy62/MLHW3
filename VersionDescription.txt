@@ -1,0 +1,14 @@
+
+
+2015/5/17
+new:
+- output parameters, read parameters file
+
+to do:
+- bidirectional RNN
+- better gradient descent 
+- train the init of memory
+- set limit of the number of unfolding
+- soft max
+- automatically set number of total data...
+- split some headers into src...

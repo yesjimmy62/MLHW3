@@ -11,11 +11,12 @@ class Layer
         VectorXd *a; //include different time information
         VectorXd *z;
 
+        int layer_size;
+
         virtual void activate(int){}
         virtual VectorXd D_z(int){}
         virtual void Forward(Layer*, MatrixXd *, MatrixXd *, int){}
         virtual void Print_Info(){}
-        int layer_size;
 
         Layer(int layersize)
         {
