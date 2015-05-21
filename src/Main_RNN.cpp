@@ -49,7 +49,7 @@ int main()
     }
     
 
-    int num_epoch = 3;
+    int num_epoch = 100;
     double learning_rate = 0.001;
 
     cout<<"num_data:"<<num_data<<endl;

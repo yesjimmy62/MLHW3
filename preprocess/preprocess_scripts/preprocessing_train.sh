@@ -40,7 +40,7 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | sed "s/didn't/did not/g" \
 | sed "s/ o / on /g" \
 | sed "s/'/ /g" \
-| sed "s/\./ \n/g" \
+| sed "s/\./ \.\n/g" \
 | sed "s/;/ \n/g" \
 | sed "s/\?/ \n/g" \
 | sed "s/!/ \n/g" \
