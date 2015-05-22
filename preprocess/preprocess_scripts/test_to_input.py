@@ -22,8 +22,11 @@ wordvec_len = 200
 data_num = 0
 
 f3.write("data_num: \n")
+f3.write("0" + '\n')
 f3.write('-----\n')
+
 f4.write("data_num: \n")
+f4.write("0" + '\n')
 f4.write('-----\n')
 
 for line in f2.readlines():
@@ -53,9 +56,11 @@ for line in f2.readlines():
 
         if option_num == 4:
 
-            f3.write('col: ' + str(wordvec_len)+'\n')
-            f3.write('row:' + str(len(sentence_wordvec)) + '\n' )
-            f3.write('ans_pos: ' + str(ans_pos) + '\n')
+            f3.write('col: \n' + str(wordvec_len)+'\n')
+            f3.write('row: \n' + str(len(sentence_wordvec)) + '\n' )
+            f3.write('ans_pos: \n')
+            f3.write(str(ans_pos) + '\n')
+
             for v in sentence_wordvec.values():
                 f3.write(' '.join(v) + '\n' )
             f3.write('-----' + '\n')
@@ -72,5 +77,7 @@ for line in f2.readlines():
 
 f3.seek(0,0)
 f4.seek(0,0)
-f3.write('data_num:' + str(data_num) + '\n')
-f4.write('data_num:' + str(data_num) + '\n')
+f3.write('data_num: \n')
+f3.write(str(data_num) + '\n')
+f4.write('data_num: \n')
+f4.write(str(data_num) + '\n')

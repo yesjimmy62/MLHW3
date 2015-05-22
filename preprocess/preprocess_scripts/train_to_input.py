@@ -12,6 +12,7 @@ f3 = open('../../input_files/TRAIN_INPUT.TXT','w')
 
 data_num = 0
 f3.write("data_num: \n")
+f3.write("0" + '\n')
 f3.write("-----\n")
 
 for line in f2:
@@ -19,8 +20,8 @@ for line in f2:
     row_num = len(words)
     if row_num <= 5:
         continue
-    f3.write('Row: ' + str(row_num) + '\n')
-    f3.write('Col: 200\n' + '-----' '\n')
+    f3.write('Row: \n' + str(row_num) + '\n')
+    f3.write('Col: \n'+  '200\n' + '-----' '\n')
     for word in words:
         s = ' '.join(wordvec[word])
         f3.write(s+"\n")
@@ -28,4 +29,5 @@ for line in f2:
 
 
 f3.seek(0,0)
-f3.write('data_num: '+ str(data_num) + '\n')
+f3.write('data_num: \n')
+f3.write(str(data_num) + '\n')
