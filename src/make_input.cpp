@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
-#define SIZE 1920 
+#define SIZE 2000 
 using std::string;
 using std::cout;
 using std::endl;
@@ -22,7 +22,8 @@ using std::find;
 typedef map<string, float*> feature_map;
 
 const char train_txt[] = "preprocess/preprocessed_files/RAW_TRAIN_INPUT.TXT";
-const char test_with_brac[] = "preprocess/preprocessed_files/RAW_TEST_WITH_BRACKETS.TXT";
+const char test_with_brac[] = "preprocess/preprocessed_files/RAW_TEST_INPUT_WITH_BRACKETS.TXT";
+const char input_txt_path[] = "input_files/input.txt";
 const char train_vec[] = "preprocess/word_vectors_files/TRAIN_VEC.TXT";
 const char test_vec[] = "preprocess/word_vectors_files/TEST_VEC.TXT";
 
@@ -43,6 +44,7 @@ int main(){
     int l1 = get_train_map(train_map, ptr, num_of_words); // l1 = length 1, length of word vector
     cout<<"simple_guess\n";
     simple_guess(train_map, l1);
+    cout<<"make input.txt\n";
     make_input_txt(train_map, l1);
     /*feature_map::iterator it;
 
@@ -297,8 +299,8 @@ void make_input_txt(feature_map* train_map, int length){
     float* ptr;
     vector<float*> fptr_vec;
     int number_of_lines = get_num_of_lines(train_txt);
-    ifstream train("TRAIN.TXT");
-    ofstream input_txt("input_files/input.txt");
+    ifstream train(train_txt);
+    ofstream input_txt(input_txt_path);
     input_txt<<"number of data:"<<endl<<number_of_lines<<endl<<"-----"<<endl;
     while(getline(train,string_line)){
         strcpy(line, string_line.c_str()); // from string to char array
