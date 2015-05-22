@@ -17,14 +17,18 @@ f3.write("-----\n")
 
 for line in f2:
     words = line.rstrip().split()
+
     row_num = len(words)
+    '''
     if row_num <= 5:
         continue
+    '''
     f3.write('Row: \n' + str(row_num) + '\n')
     f3.write('Col: \n'+  '200\n' + '-----' '\n')
     for word in words:
         s = ' '.join(wordvec[word])
         f3.write(s+"\n")
+    f3.write('-----\n')
     data_num += 1
 
 
