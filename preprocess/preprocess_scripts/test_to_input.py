@@ -12,7 +12,7 @@ for line in f1.readlines():
 
 f2 = open('../preprocessed_files/RAW_TEST_INPUT_WITH_BRACKET.TXT','r')
 f3 = open('../../input_files/TEST_INPUT.TXT','w')
-f4 = open('../../input_files/TEST_INPUT.ANS.TXT','w')
+f4 = open('../../input_files/TEST_INPUT_ANS.TXT','w')
 
 option_num = 0
 ans_wordvec  = dict()
@@ -20,6 +20,11 @@ sentence_wordvec = dict()
 ans_pos = 0
 wordvec_len = 200
 data_num = 0
+
+f3.write("data_num: \n")
+f3.write('-----\n')
+f4.write("data_num: \n")
+f4.write('-----\n')
 
 for line in f2.readlines():
     s  = line.rstrip().split()
@@ -67,5 +72,5 @@ for line in f2.readlines():
 
 f3.seek(0,0)
 f4.seek(0,0)
-f3.write('data_num:' + str(data_num) + '\n' +  '-----' + '\n')
-f4.write('data_num:' + str(data_num) + '\n' +  '-----' + '\n')
+f3.write('data_num:' + str(data_num) + '\n')
+f4.write('data_num:' + str(data_num) + '\n')
