@@ -12,12 +12,14 @@ for line in f1.readlines():
 
 f2 = open('../preprocessed_files/RAW_TEST_INPUT_WITH_BRACKET.TXT','r')
 f3 = open('../../input_files/TEST_INPUT.TXT','w')
+f4 = open('../../input_files/TEST_INPUT.ANS.TXT','w')
 
 option_num = 0
 ans_wordvec  = dict()
 sentence_wordvec = dict()
 ans_pos = 0
 wordvec_len = 200
+data_num = 0
 
 for line in f2.readlines():
     s  = line.rstrip().split()
@@ -38,7 +40,6 @@ for line in f2.readlines():
         option_num += 1
     else:
         w = s[ans_pos]
-        print w
         if w[1:-1] in wordvecs.keys():
             ans_wordvec[option_num] =  wordvecs[w[1:-1]]
         else:
@@ -46,16 +47,25 @@ for line in f2.readlines():
             ans_wordvec[option_num] = ' '.join(z)
 
         if option_num == 4:
+
             f3.write('col: ' + str(wordvec_len)+'\n')
             f3.write('row:' + str(len(sentence_wordvec)) + '\n' )
-            f3.write('ans_num:' + '5' + '\n')
+            f3.write('ans_pos: ' + str(ans_pos) + '\n')
             for v in sentence_wordvec.values():
                 f3.write(' '.join(v) + '\n' )
-            for v in ans_wordvec.values():
-                f3.write(' '.join(v) + '\n')
             f3.write('-----' + '\n')
+
+            f4.write('col: ' + str(wordvec_len) + '\n')
+            f4.write('row: ' + str(5) + '\n' )
+            for v in ans_wordvec.values():
+                f4.write(' '.join(v) + '\n' )
+            f4.write('-----' + '\n')
+            data_num  += 1
             option_num = 0
         else:
             option_num += 1
 
-
+f3.seek(0,0)
+f4.seek(0,0)
+f3.write('data_num:' + str(data_num) + '\n' +  '-----' + '\n')
+f4.write('data_num:' + str(data_num) + '\n' +  '-----' + '\n')

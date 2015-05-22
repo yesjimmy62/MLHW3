@@ -8,7 +8,7 @@ with open('../word_vectors_files/WORDVEC.TXT', 'r') as f1:
         wordvec[s[0]] = s[1:]
 
 f2 = open('../preprocessed_files/RAW_TRAIN_INPUT.TXT','r')
-f3 = open('../preprocessed_files/TRAIN_INPUT.TXT','w')
+f3 = open('../../input_files/TRAIN_INPUT.TXT','w')
 
 num_of_data = 0
 for line in f2:
