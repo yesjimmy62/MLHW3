@@ -21,7 +21,3 @@ for line in f2:
     for word in words:
         s = ' '.join(wordvec[word])
         f3.write(s+"\n")
-
-
-
-

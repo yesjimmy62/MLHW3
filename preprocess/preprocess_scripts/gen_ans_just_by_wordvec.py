@@ -1,6 +1,7 @@
 import sys
 import re
 import numpy as np
+from  numpy.linalg import norm
 
 wordvecs = dict()
 
@@ -11,7 +12,7 @@ with open('../word_vectors_files/WORDVEC.TXT','r') as f1:
         wordvecs[s[0]] = np.array(f_array)
 
 f2 = open('../preprocessed_files/RAW_TEST_INPUT_WITH_BRACKET.TXT')
-f3 = open('../guess.CSV','w')
+f3 = open('../guess2.CSV','w')
 f3.write("Id,Answer\n")
 
 line = 1
@@ -51,7 +52,7 @@ while line:
     for i in range(5):
         score = 0
         for vec in s_without_ans_wordvecs.values():
-            score += np.dot(vec,ans_wordvecs[i])
+            score += np.dot(vec,ans_wordvecs[i])/(norm(vec)*norm(ans_wordvecs[i]))
         ans_score[i] = score
 
     qq = {0:'a',1:'b',2:'c',3:'d',4:'e'}
