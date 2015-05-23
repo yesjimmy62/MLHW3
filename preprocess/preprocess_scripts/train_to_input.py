@@ -11,9 +11,9 @@ f2 = open('../preprocessed_files/RAW_TRAIN_INPUT.TXT','r')
 f3 = open('../../input_files/TRAIN_INPUT.TXT','w')
 
 data_num = 0
-f3.write("data_num: \n")
-f3.write("0" + '\n')
-f3.write("-----\n")
+f3.write('data_num:   \n')
+f3.write('0' + '\n')
+f3.write('--------\n')
 
 for line in f2:
     words = line.rstrip().split()
@@ -34,4 +34,4 @@ for line in f2:
 
 f3.seek(0,0)
 f3.write('data_num: \n')
-f3.write(str(data_num) + '\n')
+f3.write(str(data_num ) + '\n')

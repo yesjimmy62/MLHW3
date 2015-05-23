@@ -28,9 +28,6 @@ int main()
     MatrixXd *data=NULL;
     MatrixXd *real_answer=NULL;
 
-    // toy files
-    //data = Load_Data("input_files/input.txt", data);
-    //real_answer = Load_Data("input_files/output.txt", real_answer);
 
     // our real homework data
     int num_data;
@@ -41,7 +38,6 @@ int main()
 
     cout<<"data info:"<<endl;
     cout<<"data->rows():"<<data[0].rows()<<endl;
-    //cout<<"data[0]:"<<endl<<data[0].col(0)<<endl;
     for (int i=0; i<num_data;i++)
     {
         cout<<"real_answer["<<i<<"].min_Coeff():"<<real_answer[i].minCoeff()<<endl;

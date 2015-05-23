@@ -21,13 +21,13 @@ ans_pos = 0
 wordvec_len = 200
 data_num = 0
 
-f3.write("data_num: \n")
-f3.write("0" + '\n')
-f3.write('-----\n')
+f3.write('data_num: \n')
+f3.write('0' +  '\n')
+f3.write('---------\n')
 
-f4.write("data_num: \n")
-f4.write("0" + '\n')
-f4.write('-----\n')
+f4.write('data_num: \n')
+f4.write('0' + '\n')
+f4.write('---------\n')
 
 for line in f2.readlines():
     s  = line.rstrip().split()

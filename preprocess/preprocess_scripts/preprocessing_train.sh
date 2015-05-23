@@ -32,7 +32,7 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | sed "s/they're/they are/g" \
 | sed "s/'d/ would/g" \
 | sed "s/'ve/ have/g" \
-| sed "s/ah/ /g" \
+| sed "s/ ah / /g" \
 | sed "s/don't/do not/g" \
 | sed "s/'ll/ will/g" \
 | sed "s/'re/ are/g" \
