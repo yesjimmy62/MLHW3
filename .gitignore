@@ -35,6 +35,9 @@ __pycache__/
 *.out
 *.app
 
+*.TXT
+*.txt
+
 RNN_PREDICT
 RNN_TRAIN
 

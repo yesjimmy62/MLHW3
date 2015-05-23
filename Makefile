@@ -32,3 +32,13 @@ run : $(EXECUTABLE)
 clean:
 		$(RM) -rf *.o $(EXECUTABLE_TRAIN) $(EXECUTABLE_PREDICT)
 		$(RM) -f ${OBJ_PATH}/*
+
+input:
+	$(GCC) -g src/make_input.cpp -o make_input
+	./make_input input
+test:
+	$(GCC) -g src/make_input.cpp -o make_input
+	./make_input test
+guess:
+	$(GCC) -g src/make_input.cpp -o make_input
+	./make_input guess

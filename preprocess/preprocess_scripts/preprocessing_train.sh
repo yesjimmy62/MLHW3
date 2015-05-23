@@ -32,15 +32,14 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | sed "s/they're/they are/g" \
 | sed "s/'d/ would/g" \
 | sed "s/'ve/ have/g" \
-| sed "s/ah/ /g" \
+| sed "s/ ah / /g" \
 | sed "s/don't/do not/g" \
 | sed "s/'ll/ will/g" \
 | sed "s/'re/ are/g" \
 | sed "s/'in/ing/g" \
 | sed "s/didn't/did not/g" \
-| sed "s/ o / on /g" \
 | sed "s/'/ /g" \
-| sed "s/\./ \n/g" \
+| sed "s/\./ \.\n/g" \
 | sed "s/;/ \n/g" \
 | sed "s/\?/ \n/g" \
 | sed "s/!/ \n/g" \
@@ -52,4 +51,4 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | sed "s/^then,*//g" \
 | sed "s/^[ \t]*//g" \
 | sed "/^said/d" \
-| sed "s/,/ ,/g"              >  ../preprocessed_files/RAW_TRAIN_INPUT.TXT
+| sed "s/,/ ,/g"              >  ../preprocessed_files/TRAIN_INPUT.TXT

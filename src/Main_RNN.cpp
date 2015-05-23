@@ -40,7 +40,7 @@ int main()
     //chose your data
     
     int YourData = 1; //0: toy data, 1:HW3 data
-        int num_data;
+    int num_data;
 
     if (YourData == 0)
     {
@@ -52,7 +52,8 @@ int main()
     {
 
         // our real homework data
-        data = Load_Data("input_files/hw3_real_input.txt", data, &num_data);
+        //data = Load_Data("input_files/hw3_real_input.txt", data, &num_data);
+        data = Load_Data("input_files/TRAIN_INPUT.TXT", data, &num_data);
         real_answer = HW3_MakingAnswers(data, real_answer, num_data);
         //real_answer = Load_Data("input_files/output.txt", real_answer);
     }
@@ -64,7 +65,6 @@ int main()
 
     cout<<"data info:"<<endl;
     cout<<"data->rows():"<<data[0].rows()<<endl;
-    //cout<<"data[0]:"<<endl<<data[0].col(0)<<endl;
     for (int i=0; i<num_data;i++)
     {
         cout<<"real_answer["<<i<<"].min_Coeff():"<<real_answer[i].minCoeff()<<endl;
