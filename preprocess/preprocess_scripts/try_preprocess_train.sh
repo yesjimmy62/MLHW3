@@ -2,9 +2,8 @@
 cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | tr '[:upper:]' '[:lower:]' \
 | sed "/.txt/d" \
-| sed "/\*/d" \
 | sed "/^$/d" \
-| sed "/\@/d" \
+| sed "/\@./d" \
 | sed "/login:/d" \
 | sed "/password:/d" \
 | sed "/ftp/d" \
@@ -41,6 +40,7 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | sed "s/didn't/did not/g" \
 | sed "s/'/ /g" \
 | sed "s/\./ \.\n/g" \
+| sed "/\*/d" \
 | sed "s/;/ \n/g" \
 | sed "s/\?/ \n/g" \
 | sed "s/!/ \n/g" \
@@ -52,4 +52,4 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | sed "s/^then,*//g" \
 | sed "s/^[ \t]*//g" \
 | sed "/^said/d" \
-| sed "s/,/ ,/g"              >  ../preprocessed_files/RAW_TRAIN_INPUT.TXT
+| sed "s/,/ ,/g"              >  TRY_TRAIN_INPUT.TXT

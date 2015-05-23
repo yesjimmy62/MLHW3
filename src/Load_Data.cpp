@@ -117,4 +117,3 @@ MatrixXd* Load_Data_Hw3(const char* filename, MatrixXd *data, int Blank_Pos[], i
 
     return data;
 }
-
