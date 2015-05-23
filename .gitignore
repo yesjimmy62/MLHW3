@@ -37,3 +37,7 @@ __pycache__/
 
 RNN_PREDICT
 RNN_TRAIN
+
+#directories
+input_files/
+output_files/

@@ -127,9 +127,9 @@ class RNN
             int mem = memory_layer_index[0];
 
             //back propagation through time
-            while (current_time >= 0)
+            while (current_time >= 0 && current_time >= time-MAX_BPTT_LAYERS)
             {
-                ((Sigmoid_Layer_Memory*)layers[mem])->Momory_BackPropagation(&delta[mem], current_time);
+                ((Sigmoid_Layer_Memory*)layers[mem])->Memory_BackPropagation(&delta[mem], current_time);
                 for (int i=mem-1; i>=1; i--)
                     delta[i] = (weight[i].transpose() * delta[i+1]).cwiseProduct(layers[i]->D_z(current_time));
                 
@@ -140,6 +140,11 @@ class RNN
                 }
                 current_time --;
             }//current_time >= 0
+
+            if (current_time == -1)
+            {
+                ((Sigmoid_Layer_Memory*)layers[mem])->Memory_BackPropagation(&delta[mem], current_time);
+            }
 
         }//BackPropagation()
 
@@ -152,11 +157,16 @@ class RNN
                 bias[i]   -= learning_rate * D_bias[i];
             }
 
+            // <^> memory part
+
             for (int i=0; i<num_memory; i++)
             {
                 //layers[memory_layer_index[i]]->Memory_GradientDescent(learning_rate);
                 ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_weight -= learning_rate *((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->D_m_weight;
                 ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_bias   -= learning_rate * ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->D_m_bias;
+#ifdef TRAIN_MEMORY_INIT
+                ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_z_init   -= learning_rate * ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->D_m_z_init;
+#endif
             }
         }
 
@@ -171,6 +181,7 @@ class RNN
             {
                 ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->D_m_weight.setZero();
                 ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->D_m_bias.setZero();
+                ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->D_m_z_init.setZero();
             }
         }
 
@@ -180,6 +191,8 @@ class RNN
             double tmp0=0., tmp1=0.;
             double Cost=0;
 
+            double Cost_square = 0;
+            double square_tmp = 0;
             int num_features = real_answer->cols();
             for (int t=0; t<num_output; t++)
             {
@@ -194,13 +207,18 @@ class RNN
 
                     tmp0 += log(1E-5 + layers[last_layer]->a[t](i)) * (*real_answer)(t, i);
                     tmp1 += log(1.00001 - layers[last_layer]->a[t](i)) * (1.-(*real_answer)(t, i));
+                    square_tmp = pow(layers[last_layer]->a[t](i) - (*real_answer)(t,i), 2.);
                 }
-                cout<<"cost of "<<t<<"-th output:"<< -tmp0-tmp1<<endl;
+                cout<<"cost of "<<t<<"-th output:"<< -tmp0-tmp1<<"/"<<square_tmp<<endl;
+                
                 Cost += (-tmp0 - tmp1);
+                Cost_square += square_tmp;
             }
 
             cout<<"Total Cost:"<<Cost<<endl;
-            cout<<"Average Cost:"<<Cost/num_output<<endl<<endl;
+            cout<<"Total Square Cost:"<<Cost_square<<endl;
+            cout<<"Average Cost:"<<Cost/num_output<<endl;
+            cout<<"Average Square Cost:"<<Cost_square/num_output<<endl<<endl;
 
         }
                 
@@ -285,8 +303,91 @@ class RNN
             Output_Parameters(-1);
         } //void Training(...)
 
+        void Predicting_Hw3Data(int num_data, MatrixXd *data, int *Blank_Pos, MatrixXd *options)
+        {
 
-        void Predicting(int num_data, MatrixXd *data)
+
+            if (data[0].cols() != options[0].cols())
+            {
+                cout<<"the dimension of vector is different in data and options."<<endl;
+                exit(0);
+            }
+
+            int num_member;
+
+            ofstream fout("output_files/HW3_Prediction.txt");
+
+            for (int i=0; i<num_data; i++)
+            {
+                num_member = data[i].rows();
+
+                // <^> reset the memory
+                Memory_Reset();
+ 
+                // <^> forward propagation
+                for (int j=0; j<Blank_Pos[i]; j++)
+                {
+                    ForwardPropagation(data[i].row(j), j);
+ 
+                }
+ 
+                //CostFunction(num_member, &real_answer[i]);
+
+                Output_Predict_Hw3Data(&fout, Blank_Pos[i], options[i], i+1);
+ 
+ 
+ 
+            } //for (int i=0; i<num_data; i++)
+
+            fout.close();
+
+        } //void Predicting(...)
+
+        void Output_Predict_Hw3Data(ofstream *fout, int Blank_Pos, MatrixXd options, int ID)
+        {
+            int output_num = layers[last_layer]->layer_size;
+
+            int num_options = 5;
+            MatrixXd ones = MatrixXd::Constant(layer_size[last_layer] ,1 , 1.);
+            MatrixXd inner_product = options * (2*layers[last_layer]->a[Blank_Pos-1]-ones);
+
+            int max_index;
+            double max_tmp=-100000.;
+            for (int i=0; i< num_options; i++)
+            {
+                if (inner_product(i,0) > max_tmp)
+                {
+                    max_tmp = inner_product(i,0);
+                    max_index = i;
+                }
+            }
+
+            *fout<<ID<<",";
+            switch(max_index)
+            {
+                case 0:
+                    *fout<<"a"<<endl;
+                    break;
+                case 1:
+                    *fout<<"b"<<endl;
+                    break;
+                case 2:
+                    *fout<<"c"<<endl;
+                    break;
+                case 3:
+                    *fout<<"d"<<endl;
+                    break;
+                case 4:
+                    *fout<<"e"<<endl;
+                    break;
+            }
+
+
+        }
+
+
+
+        void Predicting_ToyData(int num_data, MatrixXd *data)
         {
 
             int num_member;
@@ -400,7 +501,9 @@ class RNN
             fout.open(strcat(dir_path2, filename2));
             for (int i=0; i<num_memory; i++)
             {
-                fout<<"bias:"<<endl;
+                fout<<"m_z_init:"<<endl;
+                fout<<((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_z_init.transpose();
+                fout<<endl<<"bias:"<<endl;
                 fout<<((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_bias.transpose();
                 fout<<endl<<"weight:"<<endl;
                 fout<<((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_weight<<endl;
@@ -409,7 +512,7 @@ class RNN
 
         }
 
-        void Set_Parameters(MatrixXd *bias_load, MatrixXd *weight_load, MatrixXd *m_bias_load, MatrixXd *m_weight_load)
+        void Set_Parameters(MatrixXd *bias_load, MatrixXd *weight_load, MatrixXd *m_z_init_load,  MatrixXd *m_bias_load, MatrixXd *m_weight_load)
         {
             for (int i=0; i<num_weight; i++)
             {
@@ -419,8 +522,10 @@ class RNN
 
             for (int i=0; i<num_memory; i++)
             {
+                ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_z_init = m_z_init_load[i];
                 ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_bias = m_bias_load[i];
                 ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->m_weight = m_weight_load[i];
+                ((Sigmoid_Layer_Memory*)layers[memory_layer_index[i]])->reset_memory();
             }
 
             cout<<"In Set_Parameters:"<<endl<<bias[num_weight-1]<<endl;

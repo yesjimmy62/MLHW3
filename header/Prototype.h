@@ -5,6 +5,7 @@
 
 MatrixXd* Load_Data(const char* filename, MatrixXd *data, int* );
 
+MatrixXd* Load_Data_Hw3(const char* filename, MatrixXd *data, int Blank_Pos[], int *ptr_num_data);
 MatrixXd* HW3_MakingAnswers(MatrixXd*, MatrixXd*, int);
 
 /*
