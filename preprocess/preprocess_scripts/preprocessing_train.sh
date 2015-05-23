@@ -51,4 +51,4 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | sed "s/^then,*//g" \
 | sed "s/^[ \t]*//g" \
 | sed "/^said/d" \
-| sed "s/,/ ,/g"              >  ../preprocessed_files/TRAIN_INPUT.TXT
+| sed "s/,/ ,/g"              >  ../preprocessed_files/RAW_TRAIN_INPUT.TXT
