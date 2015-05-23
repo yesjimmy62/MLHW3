@@ -56,17 +56,19 @@ for line in f2.readlines():
 
         if option_num == 4:
 
-            f3.write('col: \n' + str(wordvec_len)+'\n')
             f3.write('row: \n' + str(len(sentence_wordvec)) + '\n' )
+            f3.write('col: \n' + str(wordvec_len)+'\n')
             f3.write('ans_pos: \n')
             f3.write(str(ans_pos) + '\n')
-
+            f3.write('------\n')
             for v in sentence_wordvec.values():
                 f3.write(' '.join(v) + '\n' )
             f3.write('-----' + '\n')
 
-            f4.write('col: ' + str(wordvec_len) + '\n')
-            f4.write('row: ' + str(5) + '\n' )
+
+            f4.write('row: \n' + str(5) + '\n' )
+            f4.write('col: \n' + str(wordvec_len) + '\n')
+            f4.write('-----\n')
             for v in ans_wordvec.values():
                 f4.write(' '.join(v) + '\n' )
             f4.write('-----' + '\n')
