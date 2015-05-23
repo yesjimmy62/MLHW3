@@ -14,4 +14,7 @@
 
 #define TRAIN_MEMORY_INIT
 
+#define DATA_RANGE 3
+#define ANS_TRUNCATE 
+
 #endif //__MACRO_H__
