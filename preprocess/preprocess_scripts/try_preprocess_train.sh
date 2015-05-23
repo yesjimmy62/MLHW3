@@ -3,14 +3,14 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | tr '[:upper:]' '[:lower:]' \
 | sed "/.txt/d" \
 | sed "/^$/d" \
-| sed "/\@.*.com/d" \
+| sed "/\@./d" \
 | sed "/login:/d" \
 | sed "/password:/d" \
 | sed "/ftp/d" \
 | sed "/---/d" \
 | sed "/xx/d" \
 | tr '\n' ' ' \
-| sed "s/.*\*\*end//g" \
+| sed "s/.*\*end\*//g" \
 | sed "s/#/ /g" \
 | sed "s/:/ /g" \
 | sed "s/\[.*\]/ /g" \
