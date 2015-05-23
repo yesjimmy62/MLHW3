@@ -17,7 +17,8 @@ f3.write('--------\n')
 
 for line in f2:
     words = line.rstrip().split()
-
+    if len(words) <5:
+        continue
     row_num = len(words)
     f3.write('Row: \n' + str(row_num) + '\n')
     f3.write('Col: \n'+  '200\n' + '-----' '\n')
