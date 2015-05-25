@@ -7,7 +7,7 @@ int main()
     char header[100];
 
     // user setting
-    strcpy(header, "0_"); 
+    strcpy(header, "11_"); 
 
 
     // <^> (a) read the BasicSetting.txt file
@@ -152,8 +152,8 @@ int main()
     //data = Load_Data("input_files/input.txt", data, &num_data);
     //data = Load_Data_Hw3("input_files/input.txt", data, Blank_Pos, &num_data);
     //options = Load_Data("input_files/options.txt", options, &num_data2);
-    data = Load_Data_Hw3("input_files/TEST_INPUT.TXT", data, Blank_Pos, &num_data);
-    options = Load_Data("input_files/TEST_INPUT_ANS.TXT", options, &num_data2);
+    data = Load_Data_Hw3("input_files/TEST_INPUT_epoch7.TXT", data, Blank_Pos, &num_data);
+    options = Load_Data("input_files/TEST_INPUT_ANS_epoch7.TXT", options, &num_data2);
 
     if (num_data != num_data2)
     {
