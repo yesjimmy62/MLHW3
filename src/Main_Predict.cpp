@@ -81,8 +81,6 @@ int main()
     }
     
     fin.close();
-    cout<<"Hello!"<<endl;
-
     // <^> (c) read the MemoryParameters.txt file
     strcpy(dir_path2, dir_path);
     strcat(dir_path2, header);
