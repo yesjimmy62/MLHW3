@@ -40,10 +40,16 @@ for line in f2.readlines():
         for w in s:
             if w.startswith('['):
                 ans_pos = pos
-                ans_wordvec[option_num] = wordvecs[w[1:-1]]
+                if w[1:-1] in wordvec.keys():
+                    ans_wordvec[option_num] = wordvecs[w[1:-1]]
+                else:
+                    ans_wordvec[option_num] = ["0.0"]*200
                 pos = pos + 1
             else:
-                sentence_wordvec[pos] = wordvecs[w]
+                if w in wordvec.keys():
+                    sentence_wordvec[pos] = wordvecs[w]
+                else:
+                    sentence_wordvec[pos] = ["0.0"]*200
                 pos = pos + 1
         option_num += 1
     else:

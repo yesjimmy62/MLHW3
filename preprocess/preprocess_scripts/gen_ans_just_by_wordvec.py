@@ -18,6 +18,9 @@ f3.write("Id,Answer\n")
 line = 1
 sentence_num = 0
 
+
+count_not_in_vec =0
+
 while line:
     if sentence_num == 1040:
         break
@@ -37,23 +40,40 @@ while line:
     ans_wordvecs = dict()
     s_without_ans_wordvecs = dict()
 
+
+
+
     for i in range(5):
         w = ss[i][ans_pos][1:-1]
-        ans_wordvecs[i] = wordvecs[w]
+        if w in wordvecs.keys():
+            ans_wordvecs[i] = wordvecs[w]
+        else:
+            ans_wordvecs[i] = np.zeros(200)
+            count_not_in_vec += 1
+
+    zz = 0
 
     for i in range(len(ss[0])):
-        if i == ans_pos:
+        if i  == ans_pos:
             continue
-        w = ss[0][i]
-        s_without_ans_wordvecs[i] = wordvecs[w]
+        w = ss[0][zz]
+        if w in wordvecs.keys():
+            s_without_ans_wordvecs[zz] = wordvecs[w]
+        else:
+            s_without_ans_wordvecs[zz] = np.zeros(200)
+            count_not_in_vec += 1
+        zz = zz + 1
 
     ans_score = dict()
 
     for i in range(5):
         score = 0
-        for vec in s_without_ans_wordvecs.values():
-            score += np.dot(vec,ans_wordvecs[i])/(norm(vec)*norm(ans_wordvecs[i]))
+        sl = len(s_without_ans_wordvecs)
+        for j in range( max(0,ans_pos-3), min(sl,ans_pos+4)):
+            vec = s_without_ans_wordvecs[j]
+            score += np.dot(vec,ans_wordvecs[i])
         ans_score[i] = score
+        #print "Score " + str(i) + " : " + str(score) + "\n"
 
     qq = {0:'a',1:'b',2:'c',3:'d',4:'e'}
     a = 0
@@ -65,6 +85,8 @@ while line:
             m = temp
             a = i
 
+
     f3.write(str(sentence_num+1)+","+qq[a]+"\n")
     sentence_num += 1
 
+print "Words not in vec: " + str(count_not_in_vec)

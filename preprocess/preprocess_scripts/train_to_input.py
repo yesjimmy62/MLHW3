@@ -23,7 +23,10 @@ for line in f2:
     f3.write('Row: \n' + str(row_num) + '\n')
     f3.write('Col: \n'+  '200\n' + '-----' '\n')
     for word in words:
-        s = ' '.join(wordvec[word])
+        if word in wordvec.keys():
+            s = ' '.join(wordvec[word])
+        else:
+            s = ' '.join(["0.00000"]*200)
         f3.write(s+"\n")
     f3.write('-----\n')
     data_num += 1
