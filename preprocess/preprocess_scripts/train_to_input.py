@@ -23,12 +23,24 @@ for line in f2:
     f3.write('Row: \n' + str(row_num) + '\n')
     f3.write('Col: \n'+  '200\n' + '-----' '\n')
     for word in words:
+        s = ""
+
+        try:
+            s=' '.join(wordvec[word])
+        except KeyError:
+            print "GG"
+            pass
+            s = ' '.join(["0.00000"]*200)
+
+        '''
         if word in wordvec.keys():
             s = ' '.join(wordvec[word])
         else:
             s = ' '.join(["0.00000"]*200)
-        f3.write(s+"\n")
+        '''
+        f3.write(s+'\n')
     f3.write('-----\n')
+    print "Writing Sentence " + str(data_num) + " Done \n"
     data_num += 1
 
 

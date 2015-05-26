@@ -12,7 +12,7 @@ with open('../word_vectors_files/WORDVEC.TXT','r') as f1:
         wordvecs[s[0]] = np.array(f_array)
 
 f2 = open('../preprocessed_files/RAW_TEST_INPUT_WITH_BRACKET.TXT')
-f3 = open('../guess2.CSV','w')
+f3 = open('../../../guess.CSV','w')
 f3.write("Id,Answer\n")
 
 line = 1
@@ -45,10 +45,11 @@ while line:
 
     for i in range(5):
         w = ss[i][ans_pos][1:-1]
-        if w in wordvecs.keys():
+
+        try:
             ans_wordvecs[i] = wordvecs[w]
-        else:
-            ans_wordvecs[i] = np.zeros(200)
+        except KeyError:
+            ans_wordvecs[i] = np.random.rand(200)
             count_not_in_vec += 1
 
     zz = 0
@@ -57,10 +58,10 @@ while line:
         if i  == ans_pos:
             continue
         w = ss[0][zz]
-        if w in wordvecs.keys():
+        try:
             s_without_ans_wordvecs[zz] = wordvecs[w]
-        else:
-            s_without_ans_wordvecs[zz] = np.zeros(200)
+        except KeyError:
+            s_without_ans_wordvecs[zz] = np.random.rand(200)
             count_not_in_vec += 1
         zz = zz + 1
 
@@ -69,11 +70,10 @@ while line:
     for i in range(5):
         score = 0
         sl = len(s_without_ans_wordvecs)
-        for j in range( max(0,ans_pos-3), min(sl,ans_pos+4)):
+        for j in range( max(0,ans_pos-6), min(sl,ans_pos+3)):
             vec = s_without_ans_wordvecs[j]
-            score += np.dot(vec,ans_wordvecs[i])
+            score += np.linalg.norm(vec-ans_wordvecs[i])/(0.1+abs(j-ans_pos))
         ans_score[i] = score
-        #print "Score " + str(i) + " : " + str(score) + "\n"
 
     qq = {0:'a',1:'b',2:'c',3:'d',4:'e'}
     a = 0
@@ -84,7 +84,6 @@ while line:
         if temp > m:
             m = temp
             a = i
-
 
     f3.write(str(sentence_num+1)+","+qq[a]+"\n")
     sentence_num += 1
