@@ -13,6 +13,7 @@ int main()
 
     int layer_size[num_layer];
     
+    
     layer_size[0] = 200;
     layer_size[1] = 100;
     layer_size[2] = 200;
@@ -72,9 +73,9 @@ int main()
     }
     
 
-    int num_epoch = 30;
+    int num_epoch = 20;
     double learning_rate = 0.001;
-    //double learning_rate = 0.01;
+    //double learning_rate = 0.1;
 
     cout<<"num_data:"<<num_data<<endl;
     RNNobject.Training(num_data, data, real_answer, num_epoch, learning_rate);

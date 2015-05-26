@@ -109,7 +109,13 @@ class RNN
             //cout<<"BackPropagation..."<<endl;
             //cout<<"layer..:"<<layers[last_layer]->a[time]<<endl;
             //cout<<"real_answer:"<<real_answer<<endl;
+#ifdef CROSS_ENTROPY
             delta[last_layer] = layers[last_layer]->a[time] - real_answer;
+#endif
+
+#ifdef SQUARE_ERROR
+            delta[last_layer] = 2.*(layers[last_layer]->a[time]-real_answer).cwiseProduct(layers[last_layer]->D_z(time));
+#endif
 
             int current_time = time;
 
@@ -133,7 +139,7 @@ class RNN
                 for (int i=mem-1; i>=1; i--)
                     delta[i] = (weight[i].transpose() * delta[i+1]).cwiseProduct(layers[i]->D_z(current_time));
                 
-                for (int i=0; i<num_weight; i++)
+                for (int i=0; i<mem; i++)
                 {
                     D_weight[i] += delta[i+1] * layers[i]->a[current_time].transpose();
                     D_bias[i]   += delta[i+1];
@@ -315,7 +321,8 @@ class RNN
 
             int num_member;
 
-            ofstream fout("output_files/HW3_Prediction.txt");
+            ofstream fout("output_files/HW3_Prediction.csv");
+            fout<<"Id,answer"<<endl;
 
             for (int i=0; i<num_data; i++)
             {
@@ -336,7 +343,6 @@ class RNN
                 Output_Predict_Hw3Data(&fout, Blank_Pos[i], options[i], i+1);
  
  
- 
             } //for (int i=0; i<num_data; i++)
 
             fout.close();
@@ -348,22 +354,81 @@ class RNN
             int output_num = layers[last_layer]->layer_size;
 
             int num_options = 5;
+
+            int index;
+#ifdef MAX_INNER_PRODUCT
             MatrixXd ones = MatrixXd::Constant(layer_size[last_layer] ,1 , 1.);
             MatrixXd inner_product = options * (2*layers[last_layer]->a[Blank_Pos-1]-ones);
 
-            int max_index;
+
             double max_tmp=-100000.;
             for (int i=0; i< num_options; i++)
             {
                 if (inner_product(i,0) > max_tmp)
                 {
                     max_tmp = inner_product(i,0);
-                    max_index = i;
+                    index = i;
                 }
             }
+#endif //MAX_INNER_PRODUCT
+
+#ifdef MIN_DISTANCE
+            double distance_tmp = 0.;
+            double min_distance = 9999999;
+            for (int i=0; i<num_options; i++)
+            {
+                distance_tmp = 0.;
+                for (int j=0; j<layer_size[last_layer]; j++)
+                {
+#ifdef DATA_RANGE
+                    distance_tmp += pow(
+                            DATA_RANGE*(2.*layers[last_layer]->a[Blank_Pos-1](j)-1.) - options(i,j)
+                             , 2.);
+#else //DATA_RANGE
+                    distance_tmp += pow(
+                            (2.*layers[last_layer]->a[Blank_Pos-1](j)-1.) - options(i,j)
+                             , 2.);
+
+#endif //DATA_RANGE
+                }
+
+                if (distance_tmp < min_distance)
+                {
+                    min_distance = distance_tmp;
+                    index = i;
+                }
+            }
+                
+
+#endif //MIN_DISTANCE
+
+#ifdef MIN_COS_DISTANCE
+            MatrixXd ones = MatrixXd::Constant(layer_size[last_layer] ,1 , 1.);
+            MatrixXd inner_product = options * (2*layers[last_layer]->a[Blank_Pos-1]-ones);
+
+            double option_length[5]={0};
+            for (int i=0; i<num_options; i++)
+            {
+                for (int j=0; j < layer_size[last_layer]; j++)
+                {
+                    option_length[i] += pow(options(i, j), 2.); 
+                }
+                option_length[i] = sqrt(option_length[i]);
+            }
+
+            double max_tmp=-100000.;
+            for (int i=0; i< num_options; i++)
+            {
+                if (inner_product(i,0)/option_length[i] > max_tmp)
+                {
+                    max_tmp = inner_product(i,0)/option_length[i];
+                    index = i;
+                }
+            }
+#endif //MIN_COS_DISTANCE
 
             *fout<<ID<<",";
-            switch(max_index)
+            switch(index)
             {
                 case 0:
                     *fout<<"a"<<endl;

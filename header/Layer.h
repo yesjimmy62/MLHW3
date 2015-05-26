@@ -70,7 +70,10 @@ class Sigmoid_Layer : public Layer
         {
             VectorXd D_z(layer_size);
             for (int i=0;i<layer_size;i++)
-                D_z(i) = sigmoid(z[time](i)) * (1. - sigmoid(z[time](i)));
+            {
+                //D_z(i) = sigmoid(z[time](i)) * (1. - sigmoid(z[time](i)));
+                D_z(i) = a[time](i) * (1. - a[time](i));
+            }
             return D_z;
         }
 
@@ -143,7 +146,10 @@ class Sigmoid_Layer_Memory : public Layer
             for (int i=0;i<layer_size;i++)
             {
                 if (time >= 0)
-                    D_z(i) = sigmoid(z[time](i)) * (1. - sigmoid(z[time](i)));
+                {
+                    //D_z(i) = sigmoid(z[time](i)) * (1. - sigmoid(z[time](i)));
+                    D_z(i) = a[time](i) * (1. - a[time](i));
+                }
                 else if (time == -1)
                     D_z(i) = sigmoid(m_z_init(i)) * (1. - sigmoid(m_z_init(i)));
                 else

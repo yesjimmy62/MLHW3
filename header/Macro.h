@@ -17,4 +17,14 @@
 #define DATA_RANGE 3
 #define ANS_TRUNCATE 
 
+//Cost Function: you can ONLY choose one of them: CROSS_ENTROPY / SQUARE_ERROR
+//#define CROSS_ENTROPY
+#define SQUARE_ERROR
+
+
+//hw3 Prediction: you can only choose one of them: MAX_INNER_RPODUCT / MIN_DISTANCE
+//#define MAX_INNER_PRODUCT
+//#define MIN_DISTANCE
+#define MIN_COS_DISTANCE
+
 #endif //__MACRO_H__
