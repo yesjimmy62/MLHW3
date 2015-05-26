@@ -40,45 +40,26 @@ for line in f2.readlines():
         for w in s:
             if w.startswith('['):
                 ans_pos = pos
-                '''
-                if w[1:-1] in wordvec.keys():
-                    ans_wordvec[option_num] = wordvecs[w[1:-1]]
-                else:
-                    ans_wordvec[option_num] = ["0.0"]*200
-                '''
                 try:
                     ans_wordvec[option_num] = wordvecs[w[1:-1]]
                 except KeyError:
-                    ans_wordvec[option_num] = ["0.0"]*200
+                    ans_wordvec[option_num] = ["0.00000"]*200
 
                 pos = pos + 1
             else:
-                '''
-                if w in wordvec.keys():
-                    sentence_wordvec[pos] = wordvecs[w]
-                else:
-                    sentence_wordvec[pos] = ["0.0"]*200
-                '''
 
                 try:
                     sentence_wordvec[pos] = wordvecs[w]
                 except KeyError:
-                    sentence_wordvec[pos] = ["0.0"]*200
+                    sentence_wordvec[pos] = ["0.00000"]*200
                 pos = pos + 1
         option_num += 1
     else:
         w = s[ans_pos]
-        '''
-        if w[1:-1] in wordvecs.keys():
-            ans_wordvec[option_num] =  wordvecs[w[1:-1]]
-        else:
-            z = [str(0.)]*200
-            ans_wordvec[option_num] = ' '.join(z)
-        '''
         try:
             ans_wordvec[option_num] = wordvecs[w[1:-1]]
         except KeyError:
-            ans_wordvec[option_num] = ' '.join(["0.0"]*200)
+            ans_wordvec[option_num] = ["0.00000"]*200
 
         if option_num == 4:
 
