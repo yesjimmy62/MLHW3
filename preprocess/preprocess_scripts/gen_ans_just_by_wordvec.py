@@ -19,7 +19,6 @@ line = 1
 sentence_num = 0
 
 
-count_not_in_vec =0
 
 while line:
     if sentence_num == 1040:
@@ -40,8 +39,7 @@ while line:
     ans_wordvecs = dict()
     s_without_ans_wordvecs = dict()
 
-
-
+    ans_has_vec = [1,1,1,1,1]
 
     for i in range(5):
         w = ss[i][ans_pos][1:-1]
@@ -49,11 +47,11 @@ while line:
         try:
             ans_wordvecs[i] = wordvecs[w]
         except KeyError:
+            ans_has_vec[i] = 0
             ans_wordvecs[i] = np.random.rand(200)
-            count_not_in_vec += 1
 
     zz = 0
-
+    sentence_has_vec = [1]*(len(ss[0])-1)
     for i in range(len(ss[0])):
         if i  == ans_pos:
             continue
@@ -61,8 +59,8 @@ while line:
         try:
             s_without_ans_wordvecs[zz] = wordvecs[w]
         except KeyError:
+            sentence_has_vec[zz] = 0
             s_without_ans_wordvecs[zz] = np.random.rand(200)
-            count_not_in_vec += 1
         zz = zz + 1
 
     ans_score = dict()
@@ -72,7 +70,9 @@ while line:
         sl = len(s_without_ans_wordvecs)
         for j in range( max(0,ans_pos-6), min(sl,ans_pos+3)):
             vec = s_without_ans_wordvecs[j]
-            score += np.linalg.norm(vec-ans_wordvecs[i])/(0.1+abs(j-ans_pos))
+            if (sentence_has_vec[j] == 1) and (ans_has_vec[i] == 1):
+                score += np.linalg.norm(vec-ans_wordvecs[i])/(0.1+abs(j-ans_pos))
+                score *= np.dot(vec,ans_wordvecs[i])
         ans_score[i] = score
 
     qq = {0:'a',1:'b',2:'c',3:'d',4:'e'}
@@ -87,5 +87,3 @@ while line:
 
     f3.write(str(sentence_num+1)+","+qq[a]+"\n")
     sentence_num += 1
-
-print "Words not in vec: " + str(count_not_in_vec)

@@ -152,8 +152,8 @@ int main()
     //data = Load_Data("input_files/input.txt", data, &num_data);
 
     //Hw3 
-    data = Load_Data_Hw3("input_files/TEST_INPUT_epoch7.TXT", data, Blank_Pos, &num_data);
-    options = Load_Data("input_files/TEST_INPUT_ANS_epoch7.TXT", options, &num_data2);
+    data = Load_Data_Hw3("input_files/TEST_INPUT.TXT", data, Blank_Pos, &num_data);
+    options = Load_Data("input_files/TEST_INPUT_ANS.TXT", options, &num_data2);
 
     if (num_data != num_data2 && options != NULL)
     {
