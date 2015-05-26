@@ -1,8 +1,19 @@
 
+2015/5/26
+new:
+- square error cost (in Macro.h)
+- optimization of D_z() (in Layer.h)
+
+to do:
+- bidirectional RNN
+- better gradient descent 
+- soft max
+- split some headers into src...
+
 2015/5/23
 new:
 - train the init of memory
-- set limit of the number of unfolding (im Macro.h)
+- set limit of the number of unfolding (in Macro.h)
 - automatically set number of total data
 
 to do:

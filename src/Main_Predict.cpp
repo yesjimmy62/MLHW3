@@ -7,7 +7,7 @@ int main()
     char header[100];
 
     // user setting
-    strcpy(header, "11_"); 
+    strcpy(header, "10_"); 
 
 
     // <^> (a) read the BasicSetting.txt file
@@ -149,13 +149,15 @@ int main()
     MatrixXd *options=NULL;
     int num_data=0, num_data2=0;
     int Blank_Pos[100000]; //QQ........
+
+    //toy data
     //data = Load_Data("input_files/input.txt", data, &num_data);
-    //data = Load_Data_Hw3("input_files/input.txt", data, Blank_Pos, &num_data);
-    //options = Load_Data("input_files/options.txt", options, &num_data2);
+
+    //Hw3 
     data = Load_Data_Hw3("input_files/TEST_INPUT_epoch7.TXT", data, Blank_Pos, &num_data);
     options = Load_Data("input_files/TEST_INPUT_ANS_epoch7.TXT", options, &num_data2);
 
-    if (num_data != num_data2)
+    if (num_data != num_data2 && options != NULL)
     {
         cout<<"the number of data is not equal to the number of options"<<endl;
         exit(0);

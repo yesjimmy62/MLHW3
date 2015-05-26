@@ -109,7 +109,13 @@ class RNN
             //cout<<"BackPropagation..."<<endl;
             //cout<<"layer..:"<<layers[last_layer]->a[time]<<endl;
             //cout<<"real_answer:"<<real_answer<<endl;
+#ifdef CROSS_ENTROPY
             delta[last_layer] = layers[last_layer]->a[time] - real_answer;
+#endif
+
+#ifdef SQUARE_ERROR
+            delta[last_layer] = 2.*(layers[last_layer]->a[time]-real_answer).cwiseProduct(layers[last_layer]->D_z(time));
+#endif
 
             int current_time = time;
 
