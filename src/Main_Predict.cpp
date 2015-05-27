@@ -128,11 +128,6 @@ int main()
     
     fin.close();
 
-    /*
-    cout<<"m_z_init:"<<endl<<m_z_init[0]<<endl;
-    cout<<"m_bias:"<<endl<<m_bias[0]<<endl;
-    cout<<"bias:"<<endl<<bias[num_weight-1]<<endl;
-    */
 
     // <^> initialization of RNN, set its  weight and bias
 
