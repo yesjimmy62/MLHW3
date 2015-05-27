@@ -1,5 +1,6 @@
 #!/bin/bash -e
-cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
+cat ../../../Holmes_Training_Data/*.TXT \
+| sed "s///g" \
 | tr '[:upper:]' '[:lower:]' \
 | sed "/\.txt/d" \
 | sed "/\*/d" \
@@ -50,4 +51,5 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | sed "s/^so,*//g" \
 | sed "s/^then,*//g" \
 | sed "s/^[ \t]*//g" \
+| sed "/^said/d" \
 | sed "s/,/ ,/g"              >  ../preprocessed_files/RAW_TRAIN_INPUT.TXT
