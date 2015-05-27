@@ -15,25 +15,24 @@ cat ../../../Holmes_Training_Data/*.TXT | sed "s///g" \
 | sed "s/#/ /g" \
 | sed "s/:/ /g" \
 | sed "s/\[.*\]/ /g" \
-| sed "s/(.*)//g" \
+| sed "s/(.*)/ /g" \
 | sed "s/<.*>/ /g" \
 | sed "s/\.+/\./g" \
 | sed "s/\"//g" \
 | sed "s/-//g" \
 | sed "s/_//g" \
 | sed "s/[^[:print:]]//g" \
-| sed "s/mr./mr/g" \
-| sed "s/j.[ \t]*p/jp/g" \
-| sed "s/mrs./mrs/g" \
-| sed "s/st./st/g" \
-| sed "s/dr./dr/g" \
+| sed "s/mr\./mr/g" \
+| sed "s/j\.[ \t]*p/jp/g" \
+| sed "s/mrs\./mrs/g" \
+| sed "s/st\./st/g" \
+| sed "s/dr\./dr/g" \
 | sed "s/i'm/i am/g" \
 | sed "s/he's/he is/g" \
 | sed "s/she's/she is/g" \
 | sed "s/they're/they are/g" \
 | sed "s/'d/ would/g" \
 | sed "s/'ve/ have/g" \
-| sed "s/ ah / /g" \
 | sed "s/don't/do not/g" \
 | sed "s/'ll/ will/g" \
 | sed "s/'re/ are/g" \
