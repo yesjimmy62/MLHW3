@@ -6,7 +6,6 @@
 #define TIME_CONTAINER 500  
 
 #define MAX_NUM_DATA 9999999
-//#define MAX_NUM_DATA 1
 
 #define NUM_DATA_DUMP 1
 

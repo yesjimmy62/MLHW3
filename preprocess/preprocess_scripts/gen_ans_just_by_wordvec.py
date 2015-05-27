@@ -12,7 +12,7 @@ with open('../word_vectors_files/WORDVEC.TXT','r') as f1:
         wordvecs[s[0]] = np.array(f_array)
 
 f2 = open('../preprocessed_files/RAW_TEST_INPUT_WITH_BRACKET.TXT')
-f3 = open('../../../guess.CSV','w')
+f3 = open('../../../HW3_Prediction.csv','w')
 f3.write("Id,Answer\n")
 
 line = 1

@@ -19,13 +19,6 @@ int main()
     layer_size[2] = 200;
     
 
-    /*
-    //toy data
-    layer_size[0] = 3;
-    layer_size[1] = 50;
-    layer_size[2] = 10;
-    */
-
     int num_memory = 1;
     int memory_layer[num_memory];
     memory_layer[0] = 1;
@@ -53,10 +46,8 @@ int main()
     {
 
         // our real homework data
-        //data = Load_Data("input_files/hw3_real_input.txt", data, &num_data);
         data = Load_Data("input_files/TRAIN_INPUT.TXT", data, &num_data);
         real_answer = HW3_MakingAnswers(data, real_answer, num_data);
-        //real_answer = Load_Data("input_files/output.txt", real_answer);
     }
     else
     {

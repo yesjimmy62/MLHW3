@@ -7,7 +7,7 @@ int main()
     char header[100];
 
     // user setting
-    strcpy(header, "10_"); 
+    strcpy(header, "1_"); 
 
 
     // <^> (a) read the BasicSetting.txt file
@@ -36,15 +36,15 @@ int main()
         fin>>memory_layer[i];
 
     fin.close();
-
+    
+    /*
     cout<<"number of layers:"<<num_layer<<endl;
     cout<<"layer_size:"<<endl;
     for (int i=0; i<num_layer; i++)
         cout<<layer_size[i]<<"  ";
     cout<<endl;
     cout<<"number of memory:"<<num_memory<<endl;
-
-
+    */
 
     // <^> (b) read the NormalParameters.txt file
     strcpy(dir_path2, dir_path);
@@ -128,12 +128,11 @@ int main()
     
     fin.close();
 
-
+    /*
     cout<<"m_z_init:"<<endl<<m_z_init[0]<<endl;
     cout<<"m_bias:"<<endl<<m_bias[0]<<endl;
-
     cout<<"bias:"<<endl<<bias[num_weight-1]<<endl;
-
+    */
 
     // <^> initialization of RNN, set its  weight and bias
 
@@ -148,9 +147,6 @@ int main()
     int num_data=0, num_data2=0;
     int Blank_Pos[100000]; //QQ........
 
-    //toy data
-    //data = Load_Data("input_files/input.txt", data, &num_data);
-
     //Hw3 
     data = Load_Data_Hw3("input_files/TEST_INPUT.TXT", data, Blank_Pos, &num_data);
     options = Load_Data("input_files/TEST_INPUT_ANS.TXT", options, &num_data2);
@@ -161,8 +157,6 @@ int main()
         exit(0);
     }
 
-
-    //RNNobject.Predicting_ToyData(num_data, data);
     RNNobject.Predicting_Hw3Data(num_data, data, Blank_Pos, options);
 
     return 0;
