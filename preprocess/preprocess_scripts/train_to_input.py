@@ -1,4 +1,5 @@
 import sys
+import random
 
 wordvec = dict()
 
@@ -7,7 +8,7 @@ with open('../word_vectors_files/WORDVEC.TXT', 'r') as f1:
         s = line.rstrip().split()
         wordvec[s[0]] = s[1:]
 
-f2 = open('../preprocessed_files/RAW_TRAIN_INPUT.TXT','r')
+f2 = open('../preprocessed_files/TRAIN.TXT','r')
 f3 = open('../../input_files/TRAIN_INPUT.TXT','w')
 
 data_num = 0
@@ -15,30 +16,29 @@ f3.write('data_num:   \n')
 f3.write('0' + '\n')
 f3.write('--------\n')
 
+
 for line in f2:
     words = line.rstrip().split()
-    if len(words) <5:
+
+    if len(words) <15:
         continue
+    k = random.random()
+    if k > 0.01:
+        continue
+
     row_num = len(words)
     f3.write('Row: \n' + str(row_num) + '\n')
     f3.write('Col: \n'+  '200\n' + '-----' '\n')
     for word in words:
         s = ""
-
         try:
             s=' '.join(wordvec[word])
         except KeyError:
-            print "GG"
             pass
             s = ' '.join(["0.00000"]*200)
 
-        '''
-        if word in wordvec.keys():
-            s = ' '.join(wordvec[word])
-        else:
-            s = ' '.join(["0.00000"]*200)
-        '''
         f3.write(s+'\n')
+
     f3.write('-----\n')
     print "Writing Sentence " + str(data_num) + " Done \n"
     data_num += 1
