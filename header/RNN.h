@@ -249,6 +249,8 @@ class RNN
             int *output;
             output = new int [size_output];
 
+            int data_dump = num_data / NUM_DATA_MINI_DUMP;
+
             // <^> checking parameters
             if (layer_size[last_layer] != real_answer[0].cols())
             {
@@ -297,12 +299,15 @@ class RNN
  
                     // <^> gradient descent
                     GradientDescent(learning_rate);
+
+                    if (i % data_dump == 0)
+                       Output_Parameters(double(i)/num_data+double(epoch)); 
  
  
                 } //for (int i=0; i<num_data; i++)
                 
                 if (epoch % NUM_DATA_DUMP == 0)
-                    Output_Parameters(epoch);
+                    Output_Parameters(double(1.+epoch));
             } //for (int epoch=0; epoch<num_epoch; epoch++)
 
 
@@ -522,11 +527,11 @@ class RNN
 
 
 
-        void Output_Parameters(int epoch)
+        void Output_Parameters(double num)
         {
             char dir_path[40] ="output_files/";
             char str_epoch[15];
-            sprintf(str_epoch, "%d_", epoch); 
+            sprintf(str_epoch, "%.1f_", num); 
             char filename0[100], filename1[100], filename2[100];
 
             // <^> output basic setting

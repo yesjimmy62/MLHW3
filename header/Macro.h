@@ -8,6 +8,7 @@
 #define MAX_NUM_DATA 9999999
 
 #define NUM_DATA_DUMP 1
+#define NUM_DATA_MINI_DUMP 10 //times to dump in one epoch (include the end of epoch)
 
 #define MAX_BPTT_LAYERS 5
 

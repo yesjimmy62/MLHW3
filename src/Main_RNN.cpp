@@ -18,7 +18,11 @@ int main()
     layer_size[1] = 100;
     layer_size[2] = 200;
     
-
+    /*
+    layer_size[0] = 3;
+    layer_size[1] = 50;
+    layer_size[2] = 10;
+    */
     int num_memory = 1;
     int memory_layer[num_memory];
     memory_layer[0] = 1;
