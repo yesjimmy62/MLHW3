@@ -7,21 +7,21 @@
 
 int main()
 {
-    cout<<"HAHA! START RNN!"<<endl;
 
     int num_layer = 3; //include input layer, hidden layer, and output layer
 
     int layer_size[num_layer];
     
-    
+     
     layer_size[0] = 200;
     layer_size[1] = 100;
     layer_size[2] = 200;
     
-    /*
-    layer_size[0] = 3;
+
+   /* 
+    layer_size[0] = 15;
     layer_size[1] = 50;
-    layer_size[2] = 10;
+    layer_size[2] = 15;
     */
     int num_memory = 1;
     int memory_layer[num_memory];
