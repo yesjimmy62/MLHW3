@@ -18,11 +18,14 @@ int main()
     layer_size[2] = 200;
     */
 
-    
+    layer_size[0] = 200;
+    layer_size[1] = 100;
+    layer_size[2] = 301;
+    /* 
     layer_size[0] = 3;
     layer_size[1] = 50;
     layer_size[2] = 10;
-    
+    */
     int num_memory = 1;
     int memory_layer[num_memory];
     memory_layer[0] = 1;
@@ -37,7 +40,7 @@ int main()
 
     //chose your data
     
-    int YourData = 0; //0: toy data, 1:HW3 data, 2:1-of-N data
+    int YourData = 2; //0: toy data, 1:HW3 data, 2:1-of-N data
     int num_data;
 
     if (YourData == 0)
@@ -49,7 +52,7 @@ int main()
     else if (YourData == 1)
     {
 
-        // our real homework data(word vector as input and output)
+        // our real homework data
         data = Load_Data("input_files/TRAIN_INPUT.TXT", data, &num_data);
         real_answer = HW3_MakingAnswers(data, real_answer, num_data);
     }
@@ -58,7 +61,7 @@ int main()
         //1-of-N as answer
         data = Load_Data("input_files/TRAIN_INPUT.TXT", data, &num_data);
         int num_data2;
-        real_answer = Load_Answer("INPUT ANSWER!", real_answer, &num_data2); //skip first one
+        real_answer = Load_Answer("input_files/TRAIN_INPUT_300C.TXT", real_answer, &num_data2); //skip first one
 
         if (num_data != num_data2)
         {
@@ -71,7 +74,8 @@ int main()
         cout<<"No such data type (wrong variable: YourData)"<<endl;
         exit(0);
     }
-
+   
+    /*
     cout<<"data info:"<<endl;
     cout<<"data->rows():"<<data[0].rows()<<endl;
     for (int i=0; i<num_data;i++)
@@ -79,7 +83,7 @@ int main()
         cout<<"real_answer["<<i<<"].min_Coeff():"<<real_answer[i].minCoeff()<<endl;
         cout<<"real_answer["<<i<<"].max_Coeff():"<<real_answer[i].maxCoeff()<<endl;
     }
-    
+    */
 
     int num_epoch = 2;
     //double learning_rate = 0.001;
