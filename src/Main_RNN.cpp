@@ -12,17 +12,17 @@ int main()
 
     int layer_size[num_layer];
     
-     
+    /* 
     layer_size[0] = 200;
     layer_size[1] = 100;
     layer_size[2] = 200;
-    
-
-   /* 
-    layer_size[0] = 15;
-    layer_size[1] = 50;
-    layer_size[2] = 15;
     */
+
+    
+    layer_size[0] = 3;
+    layer_size[1] = 50;
+    layer_size[2] = 10;
+    
     int num_memory = 1;
     int memory_layer[num_memory];
     memory_layer[0] = 1;
@@ -37,7 +37,7 @@ int main()
 
     //chose your data
     
-    int YourData = 1; //0: toy data, 1:HW3 data
+    int YourData = 0; //0: toy data, 1:HW3 data, 2:1-of-N data
     int num_data;
 
     if (YourData == 0)
@@ -49,9 +49,22 @@ int main()
     else if (YourData == 1)
     {
 
-        // our real homework data
+        // our real homework data(word vector as input and output)
         data = Load_Data("input_files/TRAIN_INPUT.TXT", data, &num_data);
         real_answer = HW3_MakingAnswers(data, real_answer, num_data);
+    }
+    else if (YourData == 2)
+    {
+        //1-of-N as answer
+        data = Load_Data("input_files/TRAIN_INPUT.TXT", data, &num_data);
+        int num_data2;
+        real_answer = Load_Answer("INPUT ANSWER!", real_answer, &num_data2); //skip first one
+
+        if (num_data != num_data2)
+        {
+            cout<<"number of sentences in input file is not the same as the one in answer!"<<endl;
+            exit(0);
+        }
     }
     else
     {
@@ -68,7 +81,7 @@ int main()
     }
     
 
-    int num_epoch = 20;
+    int num_epoch = 2;
     //double learning_rate = 0.001;
     double learning_rate = 0.01;
 

@@ -1,6 +1,6 @@
 
 GCC=g++
-GCCFLAG:=-Iheader -Ieigen -O3 -Wall -g
+GCCFLAG:=-Iheader -Ieigen -O0 -Wall -g
 EXECUTABLE_TRAIN:=RNN_TRAIN
 EXECUTABLE_PREDICT:=RNN_PREDICT
 OBJ_PATH=Object

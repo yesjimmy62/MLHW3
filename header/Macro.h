@@ -18,8 +18,8 @@
 #define ANS_TRUNCATE 
 
 //Cost Function: you can ONLY choose one of them: CROSS_ENTROPY / SQUARE_ERROR
-//#define CROSS_ENTROPY
-#define SQUARE_ERROR
+#define CROSS_ENTROPY
+//#define SQUARE_ERROR
 
 
 //hw3 Prediction: you can only choose one of them: MAX_INNER_RPODUCT / MIN_DISTANCE
