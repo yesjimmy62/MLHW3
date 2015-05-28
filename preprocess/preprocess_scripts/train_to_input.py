@@ -18,12 +18,12 @@ f3.write('--------\n')
 
 
 for line in f2:
-    words = line.rstrip().split()
 
-    if len(words) <15:
+    words = line.rstrip().split()
+    if len(words) <10 or len(words) >40:
         continue
     k = random.random()
-    if k > 0.01:
+    if k > 0.05:
         continue
 
     row_num = len(words)
