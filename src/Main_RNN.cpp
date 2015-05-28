@@ -50,7 +50,7 @@ int main()
     {
 
         // our real homework data
-        data = Load_Data("input_files/TRAIN_INPUT.TXT", data, &num_data);
+        data = Load_Data("input_files/TRAIN_INPUT_5000C.TXT", data, &num_data);
         real_answer = HW3_MakingAnswers(data, real_answer, num_data);
     }
     else
