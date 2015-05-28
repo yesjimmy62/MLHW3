@@ -23,7 +23,7 @@ for line in f2:
     if len(words) <10 or len(words) >40:
         continue
     k = random.random()
-    if k > 0.05:
+    if k > 0.025:
         continue
 
     row_num = len(words)
