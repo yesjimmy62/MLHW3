@@ -119,13 +119,23 @@ class RNN
 
             int current_time = time;
 
+            cout<<endl<<"time:"<<time<<endl;
+            cout<<"delta[2]:"<<endl<<delta[last_layer]<<endl;
             for (int i=num_weight-1; i>=1; i--)
+            {
                 delta[i] = (weight[i].transpose() * delta[i+1]).cwiseProduct(layers[i]->D_z(current_time));
+                cout<<"i:"<<i<<endl;
+                cout<<"deta[i]"<<delta[i]<<endl;
+            }
             
             for (int i=0; i<num_weight; i++)
             {
                 D_weight[i] += delta[i+1] * layers[i]->a[current_time].transpose();
                 D_bias[i]   += delta[i+1];
+                cout<<"i:"<<i<<endl;
+                cout<<"current time:"<<current_time<<endl;
+                cout<<"a[current_time]:"<<endl<<layers[i]->a[current_time]<<endl;
+                cout<<"D_weight[i]:"<<endl<<D_weight[i]<<endl;
             }
 
             current_time --;
@@ -143,6 +153,11 @@ class RNN
                 {
                     D_weight[i] += delta[i+1] * layers[i]->a[current_time].transpose();
                     D_bias[i]   += delta[i+1];
+                    cout<<endl<<"back:"<<endl;
+                    cout<<"i:"<<i<<endl;
+                    cout<<"current time:"<<current_time<<endl;
+                    cout<<"a[current_time]:"<<endl<<layers[i]->a[current_time]<<endl;
+                    cout<<"D_weight[i]:"<<endl<<D_weight[i]<<endl;
                 }
                 current_time --;
             }//current_time >= 0
@@ -157,11 +172,16 @@ class RNN
 
         void GradientDescent(double learning_rate)
         {
+            cout<<endl<<"Gradient Descent:"<<endl;
             for (int i=0; i<num_weight; i++)
             {
                 weight[i] -= learning_rate * D_weight[i];
+                cout<<"D_weight:"<<endl<<D_weight[i]<<endl;
                 bias[i]   -= learning_rate * D_bias[i];
             }
+            int garbage;
+            cout<<"Pause:"<<endl;
+            cin>>garbage;
 
             // <^> memory part
 
@@ -289,7 +309,7 @@ class RNN
  
                     }
  
-                    CostFunction(num_member, &real_answer[i]);
+                    //CostFunction(num_member, &real_answer[i]);
  
                     // <^> back propagation
                     for (int j=0; j<num_member; j++)
