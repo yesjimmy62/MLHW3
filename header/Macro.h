@@ -27,6 +27,6 @@
 //#define MIN_DISTANCE
 //#define MIN_COS_DISTANCE
 #define MIN_SQUARE_ERROR
-
+//#define ONE_OF_N
 
 #endif //__MACRO_H__

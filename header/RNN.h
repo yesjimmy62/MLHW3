@@ -447,10 +447,37 @@ class RNN
                     index = i;
                 }
             }
-
-
-
 #endif //MIN_SQUARE_ERROR
+
+#ifdef ONE_OF_N
+            int one_of_n[num_options];
+            for (int i=0; i<num_options; i++)
+            {
+                for (int j=0; j<layer_size[last_layer]; j++)
+                {
+                    if (options(i,j)>0.99)
+                    {
+                        one_of_n[i] = j;
+                        break;
+                    }
+                }
+            }
+
+            double tmp=-1.;
+
+            for (int i=0; i<num_options; i++)
+            {
+                int ii = one_of_n[i];
+                if (layers[last_layer]->a[Blank_Pos-1](ii) > tmp)
+                {
+                    tmp = layers[last_layer]->a[Blank_Pos-1](ii);
+                    index = i;
+                }
+            }
+
+
+
+#endif //ONE_OF_N
 
             *fout<<ID<<",";
             switch(index)
