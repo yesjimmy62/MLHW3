@@ -3,7 +3,7 @@ import random
 
 wordvec = dict()
 
-with open('../word_vectors_files/WORDVEC.TXT', 'r') as f1:
+with open('../word_vectors_files/WORDVEC_len1.TXT', 'r') as f1:
     for line in f1:
         s = line.rstrip().split()
         wordvec[s[0]] = s[1:]
@@ -34,7 +34,6 @@ for line in f2:
         try:
             s=' '.join(wordvec[word])
         except KeyError:
-            pass
             s = ' '.join(["0.00000"]*200)
 
         f3.write(s+'\n')

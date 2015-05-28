@@ -1,7 +1,7 @@
 import sys
 
 wordvecs = dict()
-f1 = open('../word_vectors_files/WORDVEC.TXT','r')
+f1 = open('../word_vectors_files/WORDVEC_len1.TXT','r')
 
 count = 0
 for line in f1.readlines():
@@ -29,7 +29,7 @@ f4.write('data_num: \n')
 f4.write('0' + '\n')
 f4.write('---------\n')
 
-for line in f2.readlines():
+for line in f2:
     s  = line.rstrip().split()
     if option_num == 0:
         ans_pos = 0
