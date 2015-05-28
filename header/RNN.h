@@ -432,6 +432,26 @@ class RNN
             }
 #endif //MIN_COS_DISTANCE
 
+#ifdef MIN_SQUARE_ERROR
+            double error_tmp;
+            double min_error =999999.;
+            for (int i=0; i<num_options; i++)
+            {
+                error_tmp = 0.;
+                for (int j=0; j<layer_size[last_layer]; j++)
+                    error_tmp += pow(layers[last_layer]->a[Blank_Pos-1](j) - options(i,j), 2.);
+
+                if (error_tmp < min_error)
+                {
+                    min_error = error_tmp;
+                    index = i;
+                }
+            }
+
+
+
+#endif //MIN_SQUARE_ERROR
+
             *fout<<ID<<",";
             switch(index)
             {
