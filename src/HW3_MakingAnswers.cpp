@@ -20,7 +20,7 @@ MatrixXd* HW3_MakingAnswers(MatrixXd* data, MatrixXd* real_answer, int num_data)
             {
                 if (real_answer[i](row,col) > 1.)
                     real_answer[i](row,col) = 0.99999;
-                else if (real_answer[i](row,col) < -1.)
+                else if (real_answer[i](row,col) < 0.)
                     real_answer[i](row,col) = 0.00001;
             }
 #endif 
