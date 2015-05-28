@@ -14,7 +14,7 @@
 
 #define TRAIN_MEMORY_INIT
 
-#define DATA_RANGE 3
+#define DATA_RANGE 0.1
 #define ANS_TRUNCATE 
 
 //Cost Function: you can ONLY choose one of them: CROSS_ENTROPY / SQUARE_ERROR
