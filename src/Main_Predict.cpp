@@ -7,7 +7,7 @@ int main()
     char header[100];
 
     // user setting
-    strcpy(header, "1_"); 
+    strcpy(header, "5.7_"); 
 
 
     // <^> (a) read the BasicSetting.txt file

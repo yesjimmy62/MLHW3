@@ -62,9 +62,9 @@ MatrixXd* Load_Data_Hw3(const char* filename, MatrixXd *data, int Blank_Pos[], i
     ifstream fin(filename);
     FILE *File;
     File = fopen(filename, "r");
-    char str[2000];
+    char str[10000];
     string s;
-    int max_n = 2000;
+    int max_n = 10000;
 
     fgets(str, max_n, File);  getline(fin, s);
     fgets(str, max_n, File);  getline(fin, s);
