@@ -1,13 +1,17 @@
 #include "General.h"
 
-int main()
+int main(int argc, char* argv[])
 {
     char dir_path[100] = "output_files/";
     char dir_path2[100];
     char header[100];
+    char bline[5]="_";
 
     // user setting
-    strcpy(header, "1_"); 
+    //strcpy(header, "1_"); 
+    strcpy(header, argv[1]);
+    strcat(header, bline);
+    cout<<"header:"<<header<<endl;
 
 
     // <^> (a) read the BasicSetting.txt file
