@@ -28,5 +28,6 @@
 //#define MIN_COS_DISTANCE
 #define MIN_SQUARE_ERROR
 //#define ONE_OF_N
+#define MAX_MATCHING
 
 #endif //__MACRO_H__

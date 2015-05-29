@@ -479,6 +479,31 @@ class RNN
 
 #endif //ONE_OF_N
 
+
+#ifdef MAX_MATCHING
+
+            int num_matching, tmp_num_matching = -1;
+
+            for (int i=0; i<num_options; i++)
+            {
+                num_matching = 0;
+                for (int j=0; j<layer_size[last_layer]; j++)
+                {
+                    if (options(i,j)>0 && layers[last_layer]->a[Blank_Pos-1](j)>0.5)
+                        num_matching ++;
+                    else if (options(i,j)<0 && layers[last_layer]->a[Blank_Pos-1](j)<0.5)
+                        num_matching ++;
+                }
+
+                if (num_matching > tmp_num_matching)
+                {
+                    tmp_num_matching = num_matching;
+                    index = i;
+                }
+            }
+
+#endif //MAX_MATCHING
+
             *fout<<ID<<",";
             switch(index)
             {
