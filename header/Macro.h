@@ -26,7 +26,7 @@
 //#define MAX_INNER_PRODUCT
 //#define MIN_DISTANCE
 //#define MIN_COS_DISTANCE
-#define MIN_SQUARE_ERROR
+//#define MIN_SQUARE_ERROR
 //#define ONE_OF_N
 #define MAX_MATCHING
 

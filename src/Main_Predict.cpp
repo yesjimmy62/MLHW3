@@ -148,7 +148,7 @@ int main(int argc, char* argv[])
 
     //Hw3 
     data = Load_Data_Hw3("input_files/TEST_INPUT.TXT", data, Blank_Pos, &num_data);
-    options = Load_Data("input_files/TEST_INPUT_ANS.TXT", options, &num_data2);
+    options = Load_Data("input_files/TEST_INPUT_ANS_300C.TXT", options, &num_data2);
 
     if (num_data != num_data2 && options != NULL)
     {
