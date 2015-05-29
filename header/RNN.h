@@ -136,7 +136,7 @@ class RNN
             while (current_time >= 0 && current_time >= time-MAX_BPTT_LAYERS)
             {
                 ((Sigmoid_Layer_Memory*)layers[mem])->Memory_BackPropagation(&delta[mem], current_time);
-                for (int i=mem-1; i>=1; i--)
+                for (int i=mem; i>=1; i--)
                     delta[i] = (weight[i].transpose() * delta[i+1]).cwiseProduct(layers[i]->D_z(current_time));
                 
                 for (int i=0; i<mem; i++)
